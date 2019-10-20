@@ -23,6 +23,7 @@ INSTALLED_APPS = [
   # Installed apps
   'rest_framework',
   # Others
+  'frontend',
   'leads',
 ]
 
