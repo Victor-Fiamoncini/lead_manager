@@ -1,5 +1,5 @@
 // Imports
-import { GET_LEADS } from '../actions/types'
+import { GET_LEADS, DELETE_LEAD } from '../actions/types'
 
 // State
 const INITIAL_STATE = {
@@ -15,6 +15,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         leads: payload
+      }
+
+    case DELETE_LEAD:
+      return {
+        ...state,
+        leads: state.leads.filter(lead => lead.id !== payload)
       }
 
     default:
