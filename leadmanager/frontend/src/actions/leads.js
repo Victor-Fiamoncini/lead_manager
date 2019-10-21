@@ -1,6 +1,9 @@
 // Action types
 import { GET_LEADS, DELETE_LEAD, ADD_LEAD, GET_ERRORS } from './types'
 
+// Actions
+import { createMessage } from '../actions/messages'
+
 // Others
 import { api } from '../config/api'
 
@@ -31,6 +34,7 @@ export const deleteLead = id => async dispatch => {
       type: DELETE_LEAD,
       payload: id
     })
+    dispatch(createMessage({ deleteLead: 'Lead deleted' }))
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -50,6 +54,7 @@ export const addLead = lead => async dispatch => {
       type: ADD_LEAD,
       payload: res.data
     })
+    dispatch(createMessage({ addLead: 'Lead added' }))
   } catch (err) {
     dispatch({
       type: GET_ERRORS,

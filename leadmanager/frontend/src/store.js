@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 // Reducers
 import leads from './reducers/leads'
 import errors from './reducers/errors'
+import messages from './reducers/messages'
 
 // State
 const initialState = {}
@@ -18,6 +19,7 @@ const store = createStore(
 	combineReducers({
     leads,
     errors,
+    messages,
 	}),
 	initialState,
 	composeWithDevTools(applyMiddleware(...middlewares))

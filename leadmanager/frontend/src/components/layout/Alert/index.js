@@ -10,10 +10,11 @@ const Alert = () => {
   // Alert main hook
   const alert = useAlert()
 
-  // Errors state
+  // Global states
   const errors = useSelector(state => state.errors)
+  const messages = useSelector(state => state.messages)
 
-  // Errors did update
+  // Errors update
   useEffect(() => {
     if (errors.message.name) {
       alert.error(`Name: ${errors.message.name.join()}`)
@@ -25,6 +26,16 @@ const Alert = () => {
       alert.error(`Message: ${errors.message.message.join()}`)
     }
   }, [errors])
+
+  // Messages update
+  useEffect(() => {
+    if (messages.deleteLead) {
+      alert.success(messages.deleteLead)
+    }
+    if (messages.addLead) {
+      alert.success(messages.addLead)
+    }
+  }, [messages])
 
   return <></>
 }

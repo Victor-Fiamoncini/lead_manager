@@ -30,6 +30,11 @@ const Form = () => {
   const handleFormSubmit = event => {
     event.preventDefault()
     dispatch(addLead({ name, email, message }))
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    })
   }
 
   return (

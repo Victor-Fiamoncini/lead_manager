@@ -5,3 +5,5 @@ export const ADD_LEAD = 'ADD_LEAD'
 
 // UI
 export const GET_ERRORS = 'GET_ERRORS'
+export const GET_MESSAGES = 'GET_MESSAGES'
+export const CREATE_MESSAGE = 'CREATE_MESSAGE'
