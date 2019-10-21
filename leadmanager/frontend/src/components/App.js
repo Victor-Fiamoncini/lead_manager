@@ -6,15 +6,24 @@ import store from '../store'
 
 // Components
 import Header from './layout/Header'
+import Alert from './layout/Alert'
 import Dashboard from './leads/Dashboard'
+
+// Others
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import { alertOptions } from '../config/alert'
 
 // App
 const App = () => (
   <Provider store={store}>
-    <Header />
-    <div className="container pt-2">
-      <Dashboard />
-    </div>
+    <AlertProvider template={AlertTemplate} {...alertOptions}>
+      <Header />
+      <Alert />
+      <div className="container pt-2">
+        <Dashboard />
+      </div>
+    </AlertProvider>
   </Provider>
 )
 

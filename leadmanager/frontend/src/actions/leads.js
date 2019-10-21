@@ -1,5 +1,5 @@
 // Action types
-import { GET_LEADS, DELETE_LEAD, ADD_LEAD } from './types'
+import { GET_LEADS, DELETE_LEAD, ADD_LEAD, GET_ERRORS } from './types'
 
 // Others
 import { api } from '../config/api'
@@ -13,7 +13,13 @@ export const getLeads = () => async dispatch => {
       payload: res.data
     })
   } catch (err) {
-    console.log(err)
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        message: err.response.data,
+        status: err.response.status,
+      }
+    })
   }
 }
 
@@ -26,7 +32,13 @@ export const deleteLead = id => async dispatch => {
       payload: id
     })
   } catch (err) {
-    console.log(err)
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        message: err.response.data,
+        status: err.response.status,
+      }
+    })
   }
 }
 
@@ -39,6 +51,12 @@ export const addLead = lead => async dispatch => {
       payload: res.data
     })
   } catch (err) {
-    console.log(err)
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        message: err.response.data,
+        status: err.response.status,
+      }
+    })
   }
 }

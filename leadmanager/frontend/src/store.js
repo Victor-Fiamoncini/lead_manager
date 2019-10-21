@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 
 // Reducers
 import leads from './reducers/leads'
+import errors from './reducers/errors'
 
 // State
 const initialState = {}
@@ -15,7 +16,8 @@ const middlewares = [thunk]
 // Store
 const store = createStore(
 	combineReducers({
-    leads
+    leads,
+    errors,
 	}),
 	initialState,
 	composeWithDevTools(applyMiddleware(...middlewares))
