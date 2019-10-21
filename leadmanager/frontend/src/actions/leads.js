@@ -2,7 +2,7 @@
 import { GET_LEADS, DELETE_LEAD, ADD_LEAD, GET_ERRORS } from './types'
 
 // Actions
-import { createMessage } from '../actions/messages'
+import { createMessage, returnErrors } from '../actions/messages'
 
 // Others
 import { api } from '../config/api'
@@ -16,13 +16,7 @@ export const getLeads = () => async dispatch => {
       payload: res.data
     })
   } catch (err) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: {
-        message: err.response.data,
-        status: err.response.status,
-      }
-    })
+    dispatch(returnErrors(err.response.data, err.response.status))
   }
 }
 
@@ -36,13 +30,7 @@ export const deleteLead = id => async dispatch => {
     })
     dispatch(createMessage({ deleteLead: 'Lead deleted' }))
   } catch (err) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: {
-        message: err.response.data,
-        status: err.response.status,
-      }
-    })
+    dispatch(returnErrors(err.response.data, err.response.status))
   }
 }
 
@@ -56,12 +44,6 @@ export const addLead = lead => async dispatch => {
     })
     dispatch(createMessage({ addLead: 'Lead added' }))
   } catch (err) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: {
-        message: err.response.data,
-        status: err.response.status,
-      }
-    })
+    dispatch(returnErrors(err.response.data, err.response.status))
   }
 }
