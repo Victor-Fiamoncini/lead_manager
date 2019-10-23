@@ -11,6 +11,7 @@ import Alert from './layout/Alert'
 import Dashboard from './leads/Dashboard'
 import Login from './auth/Login'
 import Register from './auth/Register'
+import PrivateRoute from './auth/PrivateRoute'
 
 // Others
 import { Provider as AlertProvider } from 'react-alert'
@@ -24,11 +25,11 @@ const App = () => (
       <Router>
         <Header />
         <Alert />
-        <div className="container pt-2">
+        <div className="container py-2">
           <Switch>
-            <Route exact="/" component={Dashboard} />
-            <Route exact="/login" component={Login} />
-            <Route exact="/register" component={Register} />
+            <PrivateRoute exact path="/" component={Dashboard} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
           </Switch>
         </div>
       </Router>
