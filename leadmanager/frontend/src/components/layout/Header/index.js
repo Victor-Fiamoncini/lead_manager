@@ -1,6 +1,6 @@
 // React
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 // Header
 const Header = () => {
@@ -38,8 +38,5 @@ const Header = () => {
     </nav>
   )
 }
-
-// Props
-Header.propTypes = {}
 
 export default Header
