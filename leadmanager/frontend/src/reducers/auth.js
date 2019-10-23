@@ -1,5 +1,5 @@
 // Imports
-import { GET_ERRORS } from '../actions/types'
+import { AUTH_ERROR, USER_LOADED, USER_LOADING } from '../actions/types'
 
 // State
 const INITIAL_STATE = {
@@ -14,11 +14,28 @@ export default (state = INITIAL_STATE, action) => {
   const { type, payload } = action
 
   switch (type) {
-    case GET_ERRORS:
+    case USER_LOADING:
       return {
         ...state,
-        message: payload.message,
-        status: payload.status
+        isLoading: true
+      }
+
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: payload
+      }
+
+    case AUTH_ERROR:
+      localStorage.removeItem('token')
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        isLoading: false,
+        user: null
       }
 
     default:
