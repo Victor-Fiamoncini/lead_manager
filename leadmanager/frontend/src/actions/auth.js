@@ -1,5 +1,5 @@
 // Action types
-import { AUTH_ERROR, USER_LOADED, USER_LOADING } from './types'
+import { AUTH_ERROR, USER_LOADED, USER_LOADING, LOGIN_SUCCESS, LOGIN_FAIL } from './types'
 
 // Actions
 import { returnErrors } from '../actions/messages'
@@ -7,7 +7,7 @@ import { returnErrors } from '../actions/messages'
 // Others
 import { authApi } from '../config/api'
 
-// Login
+// Load user
 export const loadUser = () => async (dispatch, getState) => {
   dispatch({ type: USER_LOADING })
   // Get token from state
@@ -28,5 +28,27 @@ export const loadUser = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status))
     dispatch({ type: AUTH_ERROR })
+  }
+}
+
+// Login
+export const login = (username, password) => async dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }
+  // Body
+  const body = JSON.stringify({ username, password })
+  try {
+    const res = await authApi.post('/login', body, config)
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status))
+    dispatch({ type: LOGIN_FAIL })
   }
 }
