@@ -1,5 +1,5 @@
 // Action types
-import { AUTH_ERROR, USER_LOADED, USER_LOADING, LOGIN_SUCCESS, LOGIN_FAIL } from './types'
+import { AUTH_ERROR, USER_LOADED, USER_LOADING, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './types'
 
 // Actions
 import { returnErrors } from '../actions/messages'
@@ -10,17 +10,8 @@ import { authApi } from '../config/api'
 // Load user
 export const loadUser = () => async (dispatch, getState) => {
   dispatch({ type: USER_LOADING })
-  // Get token from state
-  const token = getState().auth.token
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token ? `Token ${token}` : ''
-    }
-  }
   try {
-    const res = await authApi.get('/user', config)
+    const res = await authApi.get('/user', tokenConfig(getState))
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -51,4 +42,28 @@ export const login = (username, password) => async dispatch => {
     dispatch(returnErrors(err.response.data, err.response.status))
     dispatch({ type: LOGIN_FAIL })
   }
+}
+
+// Logout
+export const logout = () => async (dispatch, getState) => {
+  try {
+    await authApi.post('/logout/', null, tokenConfig(getState))
+    dispatch({ type: LOGOUT_SUCCESS })
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status))
+  }
+}
+
+// Request configs
+export const tokenConfig = getState => {
+  // Get token from state
+  const token = getState().auth.token
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token ? `Token ${token}` : ''
+    }
+  }
+  return config
 }

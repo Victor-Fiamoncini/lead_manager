@@ -25,6 +25,9 @@ const Alert = () => {
     if (errors.message.message) {
       alert.error(`Message: ${errors.message.message.join()}`)
     }
+    if (errors.message.non_field_errors) {
+      alert.error(`Message: ${errors.message.non_field_errors.join()}`)
+    }
   }, [errors])
 
   // Messages update

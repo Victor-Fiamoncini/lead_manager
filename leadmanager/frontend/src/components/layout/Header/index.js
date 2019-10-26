@@ -1,18 +1,32 @@
 // React & Redux
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+// Actions
+import { logout } from '../../../actions/auth'
 
 // Header
 const Header = () => {
+  // Dispatch
+  const dispatch = useDispatch()
+
   // Auth state
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const user = useSelector(state => state.auth.user)
+
+  // Logout
+  const handleLogout = () => dispatch(logout())
 
   return (
     <nav className="navbar navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">Lead Manager</Link>
+        {isAuthenticated && user && (
+          <span className="navbar-text mx-2">
+            <strong>Welcome {user.username}</strong>
+          </span>
+        )}
         <button
           className="navbar-toggler collapsed"
           type="button"
@@ -27,12 +41,13 @@ const Header = () => {
         <div className="navbar-collapse collapse" id="header">
           {isAuthenticated ? (
             <ul className="navbar-nav mr-auto">
-              <h2>Welcome {user.name}</h2>
               <li className="nav-item">
                 <Link to="/" className="nav-link">Dashboard</Link>
               </li>
               <li className="nav-item">
-                <Link to="/logout" className="nav-link">Logout</Link>
+                <button className="nav-link btn btn-primary" onClick={() => handleLogout()}>
+                  Logout
+                </button>
               </li>
             </ul>
           ) : (
