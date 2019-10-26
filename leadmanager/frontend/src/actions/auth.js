@@ -1,5 +1,5 @@
 // Action types
-import { AUTH_ERROR, USER_LOADED, USER_LOADING, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './types'
+import { AUTH_ERROR, USER_LOADED, USER_LOADING, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL } from './types'
 
 // Actions
 import { returnErrors } from '../actions/messages'
@@ -66,4 +66,26 @@ export const tokenConfig = getState => {
     }
   }
   return config
+}
+
+// Register
+export const register = user => async dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }
+  // Body
+  const body = JSON.stringify(user)
+  try {
+    const res = await authApi.post('/register', body, config)
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status))
+    dispatch({ type: REGISTER_FAIL })
+  }
 }

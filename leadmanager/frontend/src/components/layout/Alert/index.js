@@ -38,6 +38,9 @@ const Alert = () => {
     if (messages.addLead) {
       alert.success(messages.addLead)
     }
+    if (messages.passwordsDoNotMatch) {
+      alert.error(messages.passwordsDoNotMatch)
+    }
   }, [messages])
 
   return <></>

@@ -1,11 +1,19 @@
 // React & Redux
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+
+// Actions
+import { register } from '../../../actions/auth'
+import { createMessage } from '../../../actions/messages'
 
 // Register
 const Register = () => {
   // Dispatch
   const dispatch = useDispatch()
+
+  // Auth state
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   // Local state
   const [userData, setUserData] = useState({
@@ -15,6 +23,7 @@ const Register = () => {
     password2: ''
   })
 
+  // Props
   const { username, email, password, password2 } = userData
 
   // Input change
@@ -26,12 +35,16 @@ const Register = () => {
   // Form submit
   const handleFormSubmit = event => {
     event.preventDefault()
-    setUserData({
-      username: '',
-      email: '',
-      password: '',
-      password2: ''
-    })
+    if (password !== password2) {
+      dispatch(createMessage({ passwordsDoNotMatch: 'Passwords do not match'}))
+    } else {
+      dispatch(register({ username, email, password }))
+    }
+  }
+
+  // Redirect
+  if (isAuthenticated) {
+    return <Redirect to="/" />
   }
 
   return (
