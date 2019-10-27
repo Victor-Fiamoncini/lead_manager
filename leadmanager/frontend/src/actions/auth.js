@@ -61,10 +61,14 @@ export const tokenConfig = getState => {
   // Headers
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token ? `Token ${token}` : ''
+      'Content-Type': 'application/json'
     }
   }
+  // Token
+  if (token) {
+    config.headers['Authorization'] = `Token ${token}`
+  }
+
   return config
 }
 

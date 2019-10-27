@@ -23,7 +23,7 @@ const Header = () => {
       <div className="container">
         <Link className="navbar-brand" to="/">Lead Manager</Link>
         {isAuthenticated && user && (
-          <span className="navbar-text mx-2">
+          <span className="navbar-text mx-2 float-right">
             <strong>Welcome {user.username}</strong>
           </span>
         )}
@@ -45,9 +45,9 @@ const Header = () => {
                 <Link to="/" className="nav-link">Dashboard</Link>
               </li>
               <li className="nav-item">
-                <button className="nav-link" onClick={() => handleLogout()}>
+                <Link className="nav-link" onClick={() => handleLogout()}>
                   Logout
-                </button>
+                </Link>
               </li>
             </ul>
           ) : (

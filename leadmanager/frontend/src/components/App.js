@@ -34,7 +34,7 @@ const App = () => {
         <Router>
           <Header />
           <Alert />
-          <div className="container py-2">
+          <div className="container pt-2 pb-4">
             <Switch>
               <PrivateRoute exact path="/" component={Dashboard} />
               <Route exact path="/login" component={Login} />

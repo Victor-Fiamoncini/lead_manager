@@ -1,5 +1,5 @@
 // Imports
-import { GET_LEADS, DELETE_LEAD, ADD_LEAD } from '../actions/types'
+import { GET_LEADS, DELETE_LEAD, ADD_LEAD, LOGOUT_SUCCESS } from '../actions/types'
 
 // State
 const INITIAL_STATE = {
@@ -27,6 +27,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         leads: [...state.leads, payload]
+      }
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        leads: []
       }
 
     default:

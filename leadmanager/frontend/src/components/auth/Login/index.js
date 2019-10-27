@@ -38,8 +38,9 @@ const Login = () => {
   // Auth state
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
+  // Redirect
   if (isAuthenticated) {
-    <Redirect to="/" />
+    return <Redirect to="/" />
   } else {
     return (
       <div className="card card-body my-4">

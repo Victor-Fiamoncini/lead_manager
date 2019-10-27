@@ -3,14 +3,15 @@ import { GET_LEADS, DELETE_LEAD, ADD_LEAD, GET_ERRORS } from './types'
 
 // Actions
 import { createMessage, returnErrors } from '../actions/messages'
+import { tokenConfig } from './auth'
 
 // Others
 import { api } from '../config/api'
 
 // Get Leads
-export const getLeads = () => async dispatch => {
+export const getLeads = () => async (dispatch, getState) => {
   try {
-    const res = await api.get('/')
+    const res = await api.get('/', tokenConfig(getState))
     dispatch({
       type: GET_LEADS,
       payload: res.data
@@ -21,9 +22,9 @@ export const getLeads = () => async dispatch => {
 }
 
 // Delete lead
-export const deleteLead = id => async dispatch => {
+export const deleteLead = id => async (dispatch, getState) => {
   try {
-    await api.delete(`/${id}`)
+    await api.delete(`/${id}`, tokenConfig(getState))
     dispatch({
       type: DELETE_LEAD,
       payload: id
@@ -35,9 +36,9 @@ export const deleteLead = id => async dispatch => {
 }
 
 // Add lead
-export const addLead = lead => async dispatch => {
+export const addLead = lead => async (dispatch, getState) => {
   try {
-    const res = await api.post('/', lead)
+    const res = await api.post('/', lead, tokenConfig(getState))
     dispatch({
       type: ADD_LEAD,
       payload: res.data
